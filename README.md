@@ -36,3 +36,7 @@ This part covers most of this repo is made for.
 - NOMAD -> Natural, Occluded, Multi-scale, Aerial Dataset. Contains images from 5 different heights (10m, 30m ,50m, 70m, 90m) and 10 different levels of occlusion. Made by filming 100 different human actors from drone across 100 different sceneries. (42k images)
 - C2A -> Combination to Application dataset, synthetic dataset made by pasting humans into disaster backgorunds (10k images)
 - SARD -> images taken by dron of real people with different positions "the authors involved actors, who simulated exhausted and injured people" (5.5k images) (rather lower altitudes <50m)
+- WISARD -> large dataset with SAR images (28k images), also contains termovision images
+- HERIDAL -> humans from drone (1600 images) (3000x4000 res)
+
+
