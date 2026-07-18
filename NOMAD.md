@@ -63,3 +63,11 @@ This three aproaches all were on YOLO8s. Then I moved to kaggle as it provides m
 ![alt text](images/image-8.png)
 
 -sixth attempt: on whole 9/10 NOMAD training on kaggle, yolo26n, failure due to time limit exceeded, 88 epochs in 12h, results complete failure, the model was overfitting and achived best results at 25 epoch
+
+### Current slcing algorithm and possible improvements
+
+Currently it's sliding window so if the actor is at the edges it can lead to minimal boxes, especially as NOMAD has this occlusions that make it even more probable and are main obstacle for the model probably. 
+
+To consider, make the algoritm choose tile with actor based on label so it nver lays at the edges and background tile choose more randomly.
+
+Also mabe go to 512px instead of 1024px for training speed. (8gb -> 3gb)
