@@ -95,15 +95,28 @@ For this attempt I modified the script for creating datase:
 3. I sliced to 512px tiles, but not using slicing window, but taking box as the pivot point that cannot be cut be slicing, which was issue with previous approach
 4. I set the backgrounds level to ~20%
 
-__The results__
-![alt text](image.png)
-
 __Analysis__
 Model achived best results on 44 epoch, on 64 ended training (patience=20). The nano model probably has to little parameters ~3 000 000 for the whole NOMAD and the training quickly plateus, because of overfitting. The train metrics loses were constantly sinking while val vere stable and performance staled. 
 
 On the next approach I will try YOLO11s with nearly 9 000 000 parameters to see if it will improve the results. 
 
 Still in comparison to earlier approaches on whole NOMAD the results look a bit more hopefully.
+
+__The results__
+![alt text](images/image-16.png)
+
+__ninth__ : same as 8, but with YOLO11s, results:
+```bash
+YOLO26s summary (fused): 122 layers, 9,465,567 parameters, 0 gradients, 20.5 GFLOPs
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 52/52 15.4it/s 3.4s
+                   all        516        430      0.769      0.577      0.637      0.376
+Speed: 0.2ms preprocess, 4.0ms inference, 0.0ms loss, 0.2ms postprocess per image
+```
+![alt text](images/image-16.png)
+
+__Analysis__
+
+The more capable model increased the scores, but still best results were achieved on 59 epoch. So overfitting seems to be still isue. 
 
 ### Current slcing algorithm and possible improvements
 

@@ -80,3 +80,29 @@ Speed: 0.6ms preprocess, 6.0ms inference, 0.0ms loss, 0.7ms postprocess per imag
 __Analysis__
 
 On the NOMAD model trained on C2A and SARD is completely helpless. Humans are so small that recall and precision are under 20%, as the photo shows model mistakes humans with trees for example. However the level of occlusion on most of this NOMAD photos made it even very hard for human to find the person on the image, especially when hidding. 
+
+__Test on more pleasant NOMAD__
+
+I tested on NOMAD with 50m only, more than 50% of visibilty, sliced to 512px. Scores:
+```bash
+Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 33/33 5.5it/s 6.0s0.1s
+                   all        516        430      0.361      0.181      0.183      0.102
+Speed: 0.8ms preprocess, 5.7ms inference, 0.0ms loss, 0.9ms postprocess per image
+```
+
+So still pretty badly. 
+
+__YOLO11s_trained_on_nomad_pleasant__
+
+I tested YOLO11s trained on nomad pleasant version (50m, more than 50% visible). Results:
+```bash
+ Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 36/36 4.7it/s 7.6s0.2s
+                   all        570        732      0.521       0.28      0.268      0.102
+Speed: 1.3ms preprocess, 9.5ms inference, 0.0ms loss, 0.3ms postprocess per image
+```
+
+YOLO11s is more conservative, probably much better when the human is from the aerial view and further away. 
+
+![alt text](images/val_batch0_pred.jpg)
+
+It looks like the model is thinking that sumans are small and on SARD they are mostly not that small compared to NOMAD fotage from 50m.
