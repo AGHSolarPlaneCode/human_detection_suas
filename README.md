@@ -39,4 +39,10 @@ This part covers most of this repo is made for.
 - WISARD -> large dataset with SAR images (28k images), also contains termovision images
 - HERIDAL -> humans from drone (1600 images) (3000x4000 res)
 
+### CV models training platforms
 
+- kaggle 30h/week, 2x15gb gpu, a bit slow cpu, datasets, notebooks
+- roboflow, 15 credits a month on free plan (premium 99used), training times similar to kaggle, nice interface, low code, on free plan very limited access to models
+- ultralytics hub, 5usd free credits, very fast, you can use 96gb GPU, access to their modesl (wide)
+- modal, you can get 30usd of credits but you have to pay verification fee 0.5usd and give them you card data
+- google colab, weaker than kaggle, rather need pro for sensible work, still not worth probably
