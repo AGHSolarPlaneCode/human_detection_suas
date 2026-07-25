@@ -44,8 +44,6 @@ bounding boxes and visibility labels to all images."
 
 - __first attempt__ with downscalling images to 1024px on 1/10 NOMAD dataset -> failure: P/R 0.47813/0.22353, best result at 11 epoch, the sizes of humans are so tiny when compressing images that the model is completely helpless. 
 
-![alt text](images/image-4.png)
-
 - __second attempt__: dataset sliced to 1024px pieces with 30/70 human/background ratio. 30 epochs training, best results at epoch 29: P/R -> 0.73227,0.47185. The approach with slicing showed potential
 
 ![alt text](images/image-5.png)
