@@ -11,6 +11,10 @@ One mannequin and one tent will be scatered in the search boundary. Minimal alti
 - Object Lands within 50' of an Target = 50 Points
 - Object Delivered to the Correct Target (Water Bottle to Mannequin + Beacon to Tent) = 30 Points
 
+### Where the model will be deployed
+
+__Jetson Orin Nano__
+
 ### Sketch of CONOPS (concept of operations)
 ```
 while(time is not up)
