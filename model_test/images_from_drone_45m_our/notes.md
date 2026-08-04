@@ -1,0 +1,4 @@
+- SAHI works really slow at least on my laptop
+- one image -> 60 slices 
+- the images that were sized up generated pretty bad hallucinations as the slices were to small for them i think
+- generally the ability to spot mannquins seems to be increased
