@@ -4,19 +4,23 @@ import re
 
 # --- Configuration ---
 json_file_path = r"C:\Users\Bartek\Desktop\IMAV\mission_1\annotations.json"
-output_labels_dir = r"C:\Users\Bartek\Desktop\IMAV\mission_1\nomad_30m_50m_70m\train\labels"
+output_base_dir = r"C:\Users\Bartek\Desktop\IMAV\mission_1\nomad_30m_50m_70m"
+train_labels_dir = os.path.join(output_base_dir, "train", "labels")
+val_labels_dir = os.path.join(output_base_dir, "val", "labels")
 allowed_actors = range(1, 101)    # Actors 1 through 100
+val_actor_ids = set(range(80, 100))  # Actors 80-99 go to the validation split
 
-# Dictionary mapping altitude strings to their corresponding minimum visibility percentage (0-100).
+# Dictionary mapping altitude strings to their corresponding (min_visibility, max_visibility) percentages (0-100).
 # Images with altitudes not listed here will be skipped entirely.
 altitude_visibility_thresholds = {
-    '30': 30,  # For 30m height, require at least 30% visibility
-    '50': 50,  # For 50m height, require at least 50% visibility
-    '70': 100   # For 70m height, require at least 100% visibility
+    '30': (20, 50),  # For 30m height, require between 20% and 50% visibility
+    '50': (50, 100),  # For 50m height, require between 50% and 100% visibility
+    '70': (100, 100)  # For 70m height, require exactly 100% visibility
 }
 
-# Create the output directory if it doesn't exist
-os.makedirs(output_labels_dir, exist_ok=True)
+# Create the output directories if they don't exist
+for labels_dir in (train_labels_dir, val_labels_dir):
+    os.makedirs(labels_dir, exist_ok=True)
 
 # Load the JSON data
 print(f"Loading {json_file_path}...")
@@ -25,6 +29,8 @@ with open(json_file_path, 'r') as f:
 
 print("Processing annotations with Actor, Altitude, and dynamic Visibility filters...")
 processed_images_count = 0
+train_images_count = 0
+val_images_count = 0
 skipped_actor_count = 0
 skipped_altitude_count = 0
 skipped_boxes_visibility_count = 0  # Counter for filtered bounding boxes
@@ -54,14 +60,18 @@ for image_data in data:
         skipped_altitude_count += 1
         continue
     
-    # Get the specific minimum visibility required for this altitude
-    current_min_visibility = altitude_visibility_thresholds[altitude]
+    # Get the specific minimum and maximum visibility required for this altitude
+    current_min_visibility, current_max_visibility = altitude_visibility_thresholds[altitude]
         
     # If it passes both image-level filters, process the bounding boxes
     img_width = image_data['width']
     img_height = image_data['height']
     annotations = image_data.get('annotations', [])
     
+    # Split the labels between train and validation folders
+    split_name = 'val' if actor_id in val_actor_ids else 'train'
+    output_labels_dir = val_labels_dir if split_name == 'val' else train_labels_dir
+
     # Create a corresponding .txt filename
     txt_filename = os.path.splitext(file_name)[0] + '.txt'
     txt_filepath = os.path.join(output_labels_dir, txt_filename)
@@ -71,10 +81,10 @@ for image_data in data:
     # Open the text file and write the normalized YOLO coordinates
     with open(txt_filepath, 'w') as txt_file:
         for ann in annotations:
-            # 3. Filter by Visibility (using the threshold specific to this altitude)
+            # 3. Filter by Visibility (using the thresholds specific to this altitude)
             # Visibility is a string in your JSON (e.g., "100"), cast to int. Default to 100 if missing.
             visibility = int(ann.get('visibility', '100'))
-            if visibility < current_min_visibility:
+            if visibility < current_min_visibility or visibility > current_max_visibility:
                 skipped_boxes_visibility_count += 1
                 continue  # Skip this specific bounding box
                 
@@ -102,9 +112,16 @@ for image_data in data:
     # it leaves an empty .txt file. YOLO handles empty .txt files fine (treats as background images),
     # but we still count the image as processed.
     processed_images_count += 1
+    if split_name == 'val':
+        val_images_count += 1
+    else:
+        train_images_count += 1
 
 print(f"Done! Successfully generated {processed_images_count} YOLO label files.")
+print(f"Train label files written to: {train_labels_dir}")
+print(f"Validation label files written to: {val_labels_dir}")
+print(f"Train images processed: {train_images_count}")
+print(f"Validation images processed: {val_images_count}")
 print(f"Skipped {skipped_actor_count} images (Actors outside 1-100).")
 print(f"Skipped {skipped_altitude_count} images (Altitude not in configured list).")
-print(f"Filtered out {skipped_boxes_visibility_count} heavily occluded bounding boxes based on height-specific thresholds.")
-print(f"Check the '{output_labels_dir}' folder for your .txt files.")
+print(f"Filtered out {skipped_boxes_visibility_count} bounding boxes outside the configured min/max visibility thresholds.")
