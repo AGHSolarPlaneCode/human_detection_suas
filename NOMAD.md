@@ -103,7 +103,7 @@ Still in comparison to earlier approaches on whole NOMAD the results look a bit 
 __The results__
 ![alt text](images/image-16.png)
 
-__ninth__ : same as 8, but with YOLO11s, results:
+__ninth__ : same as 8, but with YOLO26s, results:
 ```bash
 YOLO26s summary (fused): 122 layers, 9,465,567 parameters, 0 gradients, 20.5 GFLOPs
                  Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 52/52 15.4it/s 3.4s

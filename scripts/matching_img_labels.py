@@ -1,12 +1,12 @@
 import os
 import shutil
 
-images_source = r""
-labels_source = r""
-output_dataset_dir = r""
+images_source = r"C:\Users\Bartek\Desktop\SUAV\whole_nomad"
+labels_source = r"C:\Users\Bartek\Desktop\IMAV\mission_1\nomad_30m_50m_70m\train\labels"
+output_dataset_dir = r"C:\Users\Bartek\Desktop\SUAV\nomad_yolo_dataset_640_30_50_70"
 
 # Script for matching labels woth images Ineeded for combining files from whole nomad
-VAL_ACTORS = [f"Actor{str(i).zfill(3)}" for i in range(72, 91)] # actors chosem for val 
+VAL_ACTORS = [f"Actor{str(i).zfill(3)}" for i in range(80, 100)] # actors chosem for val 
 
 print(f"Validation Actors Configured: {VAL_ACTORS[0]} through {VAL_ACTORS[-1]}")
 
