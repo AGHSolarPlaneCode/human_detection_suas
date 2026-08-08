@@ -15,7 +15,7 @@ os.makedirs(OUTPUT_PATH, exist_ok=True)
 # Assuming you are using an Ultralytics YOLOv8/YOLO11 model. 
 # If it's YOLOv5, change model_type to "yolov5".
 detection_model = AutoDetectionModel.from_pretrained(
-    model_type="yolov8", 
+    model_type="ultralytics", 
     model_path=MODEL_WEIGHTS_PATH,
     confidence_threshold=0.6, # Adjust based on your model's strictness
     device="cuda:0"           # Change to "cpu" if you are not using a GPU
