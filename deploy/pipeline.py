@@ -6,14 +6,14 @@ from sahi.predict import get_sliced_prediction
 # SAHI needs to know which backend wrapper to use. 
 # Use 'yolov8' for both YOLOv8 and YOLO11, as they share the same Ultralytics API.
 detection_model = AutoDetectionModel.from_pretrained(
-    model_type='yolov8',
-    model_path='runs\\sliced_NOMAD_less_bg_actors91-100\\nomad_yolo26n\\weights\\best.pt',       # Use your PyTorch or ONNX file here for laptop testing
+    model_type='ultralytics',
+    model_path=r"C:\Users\Bartek\Downloads\yolo26n_nomad_cuts.pt",       # Use your PyTorch or ONNX file here for laptop testing
     confidence_threshold=0.3,   # Lower this if mannequins are being missed
     device="cpu",               # Change to "cuda:0" when you move to the Jetson
 )
 
 # 2. Define the path to a high-res test image (e.g., from your NOMAD or C2A dataset)
-image_path = r"C:\Users\Bartek\Desktop\SUAV\wisard\200426_SkookumCreek_Mavic_Mini_VIS_0006\200426_SkookumCreek_Mavic_Mini_VIS_0006_00000001.jpg"
+image_path = r"C:\Users\Bartek\Downloads\real_dataset-20260827T174605Z-1-001\real_dataset\001.jpg"
 
 # 3. Perform Sliced Inference
 print("Slicing image and running inference...")
@@ -44,12 +44,12 @@ for object_prediction in result.object_prediction_list:
     print(f"Detected {category_name} (Conf: {score:.2f}) at pixel [{center_x}, {center_y}]")
 
 # 5. Visualize and Save the Results
-output_dir = "sahi_results/"
+output_dir = r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\sahi_results_5\\"
 print(f"Exporting visualization to {output_dir}")
 result.export_visuals(export_dir=output_dir, file_name="sahi_output")
 
 # (Optional) Display the image immediately using OpenCV
 output_image = cv2.imread(f"{output_dir}sahi_output.png")
-cv2.imwrite("SAHI Output.png", output_image)
+# cv2.imwrite(r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\SAHI Output.png", output_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

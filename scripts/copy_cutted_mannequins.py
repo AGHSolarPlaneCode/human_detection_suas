@@ -6,13 +6,13 @@ from PIL import Image, ImageEnhance, ImageFilter
 # ==========================================
 # 1. CONFIGURATION PATHS & VARIABLES
 # ==========================================
-BG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\whole_nomad\TN_a50"
-FG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts"
-OUT_IMG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts\output\images"
-OUT_LABEL_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts\output\labels"
+BG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\whole_nomad\TN_a90"
+FG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\people"
+OUT_IMG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v2\output\images"
+OUT_LABEL_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v2\output\labels"
 
 SLICE_SIZE = 640          # 640x640 crops
-SLICES_PER_PAIR = 5       # How many slices to generate per bg + fg combination
+SLICES_PER_PAIR = 1       # How many slices to generate per bg + fg combination
 CLASS_ID = 0              # YOLO class ID for your mannequin
 
 # Create output directories if they don't exist
