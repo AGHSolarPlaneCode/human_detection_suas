@@ -6,10 +6,10 @@ from PIL import Image, ImageEnhance, ImageFilter
 # ==========================================
 # 1. CONFIGURATION PATHS & VARIABLES
 # ==========================================
-BG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\whole_nomad\TN_a90"
-FG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\people"
-OUT_IMG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v2\output\images"
-OUT_LABEL_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v2\output\labels"
+BG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v3\bg\val"
+FG_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\cuts_v3\people\val1"
+OUT_IMG_FOLDER = r"c:\Users\Bartek\Desktop\SUAV\cuts_v3\val1\images"
+OUT_LABEL_FOLDER = r"c:\Users\Bartek\Desktop\SUAV\cuts_v3\val1\labels"
 
 SLICE_SIZE = 640          # 640x640 crops
 SLICES_PER_PAIR = 1       # How many slices to generate per bg + fg combination
@@ -28,19 +28,19 @@ def augment_foreground(fg_image):
     if random.choice([True, False]):
         fg_image = fg_image.transpose(Image.FLIP_LEFT_RIGHT)
         
-    # Random rotation (-15 to +15 degrees)
-    angle = random.uniform(-15, 15)
+    # Random rotation (-90 to +90 degrees)
+    angle = random.uniform(-90, 90)
     fg_image = fg_image.rotate(angle, resample=Image.BICUBIC, expand=True)
     
-    # Random brightness (0.8x to 1.2x)
+    # Random brightness (0.6x to 1.4x)
     enhancer = ImageEnhance.Brightness(fg_image)
-    fg_image = enhancer.enhance(random.uniform(0.8, 1.2))
+    fg_image = enhancer.enhance(random.uniform(0.6, 1.4))
     
     # Apply random Gaussian Blur to soften artificial edges
     # We apply it randomly so the model sees both sharp and slightly blurry examples
     if random.choice([True, False]):
-        # Radius between 0.5 and 1.5 pixels (keeps it subtle but effective)
-        blur_radius = random.uniform(0.5, 1.5)
+        # Radius between 0.1 and 2.5 pixels (keeps it subtle but effective)
+        blur_radius = random.uniform(0.1, 2.5)
         fg_image = fg_image.filter(ImageFilter.GaussianBlur(radius=blur_radius))
     
     # CRITICAL: Cropping to the actual non-transparent pixels after rotation/blur

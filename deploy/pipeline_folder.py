@@ -6,14 +6,14 @@ from sahi.predict import get_sliced_prediction
 # 1. Initialize the SAHI AutoDetectionModel
 detection_model = AutoDetectionModel.from_pretrained(
     model_type='ultralytics',
-    model_path=r"C:\Users\Bartek\Downloads\yolo26n_nomad_cuts_tents.pt",
-    confidence_threshold=0.3,
+    model_path=r"C:\Users\Bartek\Downloads\only_cuts.pt",
+    confidence_threshold=0.1,
     device="cpu", # Note: "cpu" will be quite slow for a whole folder
 )
 
 # 2. Define input path (can be a file OR a folder) and output directory
-input_path = Path(r"C:\Users\Bartek\Downloads\real_dataset-20260827T174605Z-1-001\real_dataset")
-output_dir = Path(r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\sahi_results_6_real_dataset\\")
+input_path = Path(r"C:\Users\Bartek\Desktop\SUAV\flight_data\train")
+output_dir = Path(r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\sahi_results_12_only_cuts\_real_dataset\\")
 
 # Create output directory if it doesn't exist
 output_dir.mkdir(parents=True, exist_ok=True)

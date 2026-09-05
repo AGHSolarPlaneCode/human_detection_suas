@@ -7,8 +7,8 @@ from sahi.predict import get_sliced_prediction
 # Use 'yolov8' for both YOLOv8 and YOLO11, as they share the same Ultralytics API.
 detection_model = AutoDetectionModel.from_pretrained(
     model_type='ultralytics',
-    model_path=r"C:\Users\Bartek\Downloads\yolo26n_nomad_cuts.pt",       # Use your PyTorch or ONNX file here for laptop testing
-    confidence_threshold=0.3,   # Lower this if mannequins are being missed
+    model_path=r"C:\Users\Bartek\Downloads\four_classes.pt",       # Use your PyTorch or ONNX file here for laptop testing
+    confidence_threshold=0.1,   # Lower this if mannequins are being missed
     device="cpu",               # Change to "cuda:0" when you move to the Jetson
 )
 
@@ -20,8 +20,8 @@ print("Slicing image and running inference...")
 result = get_sliced_prediction(
     image_path,
     detection_model,
-    slice_height=512,             # Must match the resolution you trained your YOLO model on
-    slice_width=512,
+    slice_height=640,             # Must match the resolution you trained your YOLO model on
+    slice_width=640,
     overlap_height_ratio=0.25,    # 25% overlap ensures objects on seams aren't missed
     overlap_width_ratio=0.25,
     perform_standard_pred=False,  # Set to True to also run inference on the full, unsliced image
@@ -44,7 +44,7 @@ for object_prediction in result.object_prediction_list:
     print(f"Detected {category_name} (Conf: {score:.2f}) at pixel [{center_x}, {center_y}]")
 
 # 5. Visualize and Save the Results
-output_dir = r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\sahi_results_5\\"
+output_dir = r"C:\Users\Bartek\Desktop\SUAV\human_detection_suas\sahi_results_7_four_classes\\"
 print(f"Exporting visualization to {output_dir}")
 result.export_visuals(export_dir=output_dir, file_name="sahi_output")
 
