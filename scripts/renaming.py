@@ -39,8 +39,8 @@ def rename_files_sequentially(input_folder, output_folder):
 if __name__ == "__main__":
     # --- CONFIGURE YOUR SETTINGS HERE ---
     
-    INPUT_FOLDER = r"c:\Users\Bartek\Desktop\SUAV\cuts_v3\bg\train"
-    OUTPUT_FOLDER = r"c:\Users\Bartek\Desktop\SUAV\cuts_v3\bg" 
+    INPUT_FOLDER = r"C:\Users\Bartek\Desktop\IMAV\astra_dataset"
+    OUTPUT_FOLDER = r"C:\Users\Bartek\Desktop\IMAV\astra_dataset_renamed" 
     
     # ------------------------------------
     

@@ -51,8 +51,8 @@ def slice_images(input_folder, output_folder, tile_size=640, drop_partials=True)
 if __name__ == "__main__":
     # --- CONFIGURE YOUR SETTINGS HERE ---
     
-    INPUT_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\flight_data\bg"
-    OUTPUT_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\flight_data\bg_sliced"
+    INPUT_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\backgrounds\not_processed_bg"
+    OUTPUT_FOLDER = r"C:\Users\Bartek\Desktop\SUAV\backgrounds\bg_sliced"
     
     TILE_SIZE = 640
     
